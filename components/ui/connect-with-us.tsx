@@ -21,7 +21,7 @@ const SocialConnect = () => {
           }}
         >
           <div className="flex flex-wrap justify-center gap-8">
-            <a href="#" className="social-icon instagram">
+            <a href="https://www.instagram.com/rudrant.joshi/?hl=en" className="social-icon instagram" target="_blank" rel="noopener noreferrer">
               <div className="icon-container">
                 <svg
                   viewBox="0 0 24 24"
@@ -53,7 +53,7 @@ const SocialConnect = () => {
               <span className="icon-label">Discord</span>
             </a>
             
-            <a href="#" className="social-icon github">
+            <a href="https://github.com/Rudrant-Joshi" className="social-icon github" target="_blank" rel="noopener noreferrer">
               <div className="icon-container">
                 <svg
                   viewBox="0 0 24 24"
@@ -69,7 +69,7 @@ const SocialConnect = () => {
               <span className="icon-label">GitHub</span>
             </a>
             
-            <a href="#" className="social-icon linkedin">
+            <a href="https://www.linkedin.com/in/rudrant-joshi-0bb670326/" className="social-icon linkedin" target="_blank" rel="noopener noreferrer">
               <div className="icon-container">
                 <svg
                   viewBox="0 0 24 24"
