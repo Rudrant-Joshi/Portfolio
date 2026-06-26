@@ -406,6 +406,22 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 .eq-item.in-view .eq-bar{height:var(--h,60px);}
 .eq-label{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;color:var(--ink-muted);white-space:nowrap;}
 
+/* Stack: wrap into grid on mobile so no items are hidden */
+@media (max-width:640px){
+  .eq{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    height:auto;
+    gap:24px 12px;
+    overflow-x:visible;
+    justify-items:center;
+  }
+  .eq-item{flex:none;}
+  .eq-bar{height:6px;}
+  .eq-item.in-view .eq-bar{height:calc(var(--h,60px) * 0.65);}
+  .eq-label{font-size:.58rem;}
+}
+
 /* Eq item stagger */
 .eq-item{
   opacity:0;transform:translateY(24px);
@@ -526,6 +542,11 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
 .footer-inner p{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-faint);letter-spacing:.04em;}
 .to-top{font-family:var(--f-mono);font-size:.72rem;color:var(--ink-muted);letter-spacing:.04em;transition:color .3s;}
+
+/* Footer: stack vertically on small screens */
+@media (max-width:480px){
+  .footer-inner{flex-direction:column;align-items:center;text-align:center;gap:8px;}
+}
 .to-top:hover{color:var(--signal);}
 
 /* ===================== RESPONSIVE ===================== */
@@ -566,6 +587,21 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
   .work-desc{font-size:.88rem;margin-top:8px;}
   .work-tech{margin-top:14px;gap:6px;}
   .work-tech span{padding:4px 8px;font-size:.6rem;}
+
+  /* Social connect icons slightly smaller */
+  .icon-wrap{width:60px;height:60px;}
+  .connect-box{padding:24px 16px;}
+  .connect-grid{gap:20px;}
+}
+
+/* Extra-small screens (≤400px) */
+@media (max-width:400px){
+  .nav-links{gap:10px;}
+  .nav-link{font-size:.6rem;letter-spacing:.06em;}
+  .icon-wrap{width:54px;height:54px;}
+  .icon-label-text{font-size:.58rem;}
+  .connect-grid{gap:16px;}
+  .section-head h2{font-size:clamp(1.5rem,6vw,2.2rem);}
 }
 
 /* ===================== CONNECT WITH US ===================== */
