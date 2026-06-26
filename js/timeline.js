@@ -70,8 +70,9 @@
 
       // Position marker top statically
       var markerTopRatio = cachedDocHeight > 0 ? (markerScroll / cachedDocHeight) : 0;
-      var markerTop = markerTopRatio * cachedInnerHeight;
-      timelineMarkers[id].style.top = Math.min(Math.max(markerTop, 20), cachedInnerHeight - 20) + 'px';
+      var timelineHeight = scrollTimeline ? scrollTimeline.clientHeight : cachedInnerHeight;
+      var markerTop = markerTopRatio * timelineHeight;
+      timelineMarkers[id].style.top = Math.min(Math.max(markerTop, 0), timelineHeight) + 'px';
     });
   }
 
@@ -89,15 +90,16 @@
     var diff = targetScrollPercent - currentScrollPercent;
     
     // Only update styles if there is a difference to prevent browser paint overload
+    var timelineHeight = scrollTimeline ? scrollTimeline.clientHeight : cachedInnerHeight;
     if (Math.abs(diff) > 0.01) {
       currentScrollPercent += diff * 0.15;
       timelineFill.style.height = currentScrollPercent + '%';
-      var orbTop = (currentScrollPercent / 100) * cachedInnerHeight;
+      var orbTop = (currentScrollPercent / 100) * timelineHeight;
       timelineOrb.style.top = orbTop + 'px';
     } else if (currentScrollPercent !== targetScrollPercent) {
       currentScrollPercent = targetScrollPercent;
       timelineFill.style.height = currentScrollPercent + '%';
-      var orbTop = (currentScrollPercent / 100) * cachedInnerHeight;
+      var orbTop = (currentScrollPercent / 100) * timelineHeight;
       timelineOrb.style.top = orbTop + 'px';
     }
 

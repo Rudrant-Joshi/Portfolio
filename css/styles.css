@@ -125,7 +125,7 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 
 /* ===================== LEFT SCROLL TIMELINE ===================== */
 .scroll-timeline{
-  position:fixed;top:0;left:22px;height:100vh;width:48px;z-index:150;
+  position:fixed;top:96px;left:22px;height:calc(100vh - 136px);width:48px;z-index:150;
   pointer-events:none;display:flex;flex-direction:column;align-items:center;
 }
 .timeline-track{
