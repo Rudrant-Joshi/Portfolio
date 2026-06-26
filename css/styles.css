@@ -22,7 +22,7 @@
 
 /* ===================== RESET ===================== */
 *,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
 body{
   margin:0;
   background:var(--void);
@@ -494,16 +494,17 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
   .about-grid{grid-template-columns:1fr;}
   .work-grid{grid-template-columns:1fr;}
 }
-@media (max-width:640px){
-  /* Adjust container padding to clear the left timeline */
-  .container{padding-inline:28px 16px;}
-  
-  /* Retain timeline on mobile but make it compact and hide text labels */
-  .scroll-timeline{display:flex;left:4px;width:16px;}
-  .timeline-marker-label{display:none !important;}
-  .timeline-marker{width:10px;height:10px;}
-  .timeline-orb{width:8px;height:8px;}
+@media (max-width:768px){
+  /* Hide the scroll timeline on mobile/tablet viewports */
+  .scroll-timeline{display:none !important;}
+  .container{padding-inline:16px;}
 
+  /* Disable scrollbox hijacking in work section: make cards scroll naturally with main page */
+  .container-scroll-card-inner{height:auto;overflow:visible;}
+  .container-scroll-card-inner .work-grid{height:auto;overflow-y:visible;padding:8px 0;}
+  .container-scroll-card{border-radius:16px;padding:8px;}
+}
+@media (max-width:640px){
   /* Keep header links visible by hiding status text and reducing gap */
   .nav-status{display:none;}
   .nav-links{display:flex;gap:14px;}

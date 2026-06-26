@@ -259,6 +259,12 @@
   function updateContainerScroll() {
     if (!csContainer || !csCard || !csHeader || reduced) return;
 
+    if (csMobile) {
+      csCard.style.transform = '';
+      csHeader.style.transform = '';
+      return;
+    }
+
     var scrollTop = window.scrollY;
     var containerTop = csContainerTop - scrollTop;
 
