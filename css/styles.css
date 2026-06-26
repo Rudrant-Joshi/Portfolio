@@ -22,7 +22,15 @@
 
 /* ===================== RESET ===================== */
 *,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;overflow-x:hidden;}
+html{
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+  scrollbar-width:none; /* Firefox */
+  -ms-overflow-style:none; /* IE and Edge */
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display:none; /* Chrome, Safari, Opera */
+}
 body{
   margin:0;
   background:var(--void);

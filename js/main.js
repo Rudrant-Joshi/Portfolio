@@ -22,12 +22,15 @@
   function finishPreload(){
     preloader.classList.add('is-done');
     hero.classList.add('started');
-    document.body.style.overflow = '';
     
     // Initialize components on load completion
     initCachedPositions();
     if (window.Timeline) window.Timeline.init();
-    setTimeout(function(){ preloader.style.display = 'none'; }, 850);
+    setTimeout(function(){
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      preloader.style.display = 'none';
+    }, 850);
   }
 
   if (reduced) {
@@ -40,6 +43,7 @@
     }, 50);
   } else {
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     var p = 0;
     var iv = setInterval(function(){
       p += Math.random() * 14 + 6;
