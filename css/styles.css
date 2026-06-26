@@ -121,7 +121,7 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 .nav-link::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--signal);transition:width .35s var(--ease-out);}
 .nav-link:hover,.nav-link.active{color:var(--ink);}
 .nav-link:hover::after,.nav-link.active::after{width:100%;}
-.nav-progress{position:absolute;left:0;bottom:-1px;height:2px;width:0%;background:var(--signal);box-shadow:0 0 8px rgba(var(--signal-rgb),.6);}
+
 
 /* ===================== LEFT SCROLL TIMELINE ===================== */
 .scroll-timeline{

@@ -112,9 +112,8 @@
     });
   }
 
-  /* ---------- NAV SCROLL STATE + PROGRESS ---------- */
+  /* ---------- NAV SCROLL STATE ---------- */
   var nav = document.getElementById('nav');
-  var navProgress = document.getElementById('navProgress');
   var sections = ['about','stack','work','contact'];
   var navLinks = {};
   document.querySelectorAll('.nav-link').forEach(function(l){ navLinks[l.dataset.nav] = l; });
@@ -286,11 +285,7 @@
     if (scrollScheduled) return;
     scrollScheduled = true;
     requestAnimationFrame(function(){
-      var scrollTop = window.scrollY;
-      nav.classList.toggle('scrolled', scrollTop > 30);
-      
-      var pct = cachedDocHeight > 0 ? (scrollTop / cachedDocHeight) * 100 : 0;
-      navProgress.style.width = pct + '%';
+      nav.classList.toggle('scrolled', window.scrollY > 30);
 
       if (window.Timeline) window.Timeline.update();
       updateParallax();
