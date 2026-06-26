@@ -318,4 +318,54 @@
       window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
     });
   });
+
+  /* ---------- TOAST NOTIFICATION HELPERS ---------- */
+  function showToast(title, desc) {
+    var existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    var toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = [
+      '<div class="toast-icon">',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">',
+          '<path d="M20 6L9 17l-5-5"></path>',
+        '</svg>',
+      '</div>',
+      '<div class="toast-content">',
+        '<div class="toast-title">' + title + '</div>',
+        '<div class="toast-desc">' + desc + '</div>',
+      '</div>'
+    ].join('');
+
+    document.body.appendChild(toast);
+    toast.offsetHeight; // force reflow
+    toast.classList.add('is-visible');
+
+    setTimeout(function() {
+      toast.classList.remove('is-visible');
+      setTimeout(function() {
+        if (toast.parentNode) {
+          toast.remove();
+        }
+      }, 600);
+    }, 3000);
+  }
+
+  /* ---------- EMAIL CLIPBOARD COPY ---------- */
+  var emailBtn = document.getElementById('emailBtn');
+  if (emailBtn) {
+    emailBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var email = 'rudrant.joshi@gmail.com';
+      navigator.clipboard.writeText(email).then(function() {
+        showToast('Copied!', 'rudrant.joshi@gmail.com added to clipboard.');
+      }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+        window.location.href = emailBtn.href;
+      });
+    });
+  }
 })();
