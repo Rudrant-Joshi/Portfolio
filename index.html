@@ -9,8 +9,248 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fonts and icons for Tech Stack Radar -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <!-- Three.js WebGL Engine CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Tailwind CSS for Tech Stack Radar -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    corePlugins: {
+      preflight: false,
+    },
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary-fixed": "#c2e8ff",
+                "outline-variant": "#544433",
+                "inverse-on-surface": "#303030",
+                "border-subtle": "var(--border)",
+                "border": "var(--border)",
+                "border-strong": "var(--border-strong)",
+                "on-background": "var(--ink)",
+                "surface-container-low": "var(--void)",
+                "error-container": "#93000a",
+                "surface-bright": "#393939",
+                "primary-fixed-dim": "#ffb869",
+                "on-tertiary-fixed": "#001e2c",
+                "secondary": "var(--ink-muted)",
+                "primary": "var(--signal)",
+                "secondary-fixed-dim": "#c8c6c5",
+                "on-error": "#690005",
+                "tertiary-fixed-dim": "#77d1ff",
+                "tertiary": "#91d8ff",
+                "surface-dim": "var(--void)",
+                "surface-variant": "var(--surface-2)",
+                "on-tertiary-fixed-variant": "#004d68",
+                "on-secondary-fixed": "#1c1b1b",
+                "secondary-fixed": "#e5e2e1",
+                "tertiary-container": "#00c1ff",
+                "on-tertiary": "#003548",
+                "on-primary-fixed-variant": "#673d00",
+                "secondary-container": "var(--surface-2)",
+                "background": "var(--void)",
+                "on-surface-variant": "var(--ink-muted)",
+                "primary-fixed": "#ffdcbb",
+                "text-muted": "var(--ink-muted)",
+                "surface-tint": "var(--signal)",
+                "primary-container": "var(--signal)",
+                "amber-glow": "rgba(var(--signal-rgb), 0.15)",
+                "on-secondary-fixed-variant": "#474746",
+                "surface-container-highest": "var(--surface-2)",
+                "surface-container": "var(--surface)",
+                "on-surface": "var(--ink)",
+                "on-secondary-container": "#b7b5b4",
+                "on-primary-fixed": "#2c1700",
+                "surface-container-lowest": "var(--void)",
+                "inverse-primary": "#885200",
+                "outline": "#a28d79",
+                "on-tertiary-container": "#004b66",
+                "on-primary": "#482900",
+                "inverse-surface": "var(--ink)",
+                "surface-container-high": "var(--surface-2)",
+                "on-secondary": "#313030",
+                "text-primary": "var(--ink)",
+                "error": "#ffb4ab",
+                "surface": "var(--void)",
+                "on-error-container": "#ffdad6",
+                "on-primary-container": "var(--ink)"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "unit-sm": "0.5rem",
+                "unit-lg": "2rem",
+                "section-gap-desktop": "12rem",
+                "unit-md": "1rem",
+                "margin-safe": "2rem",
+                "gutter": "1.5rem",
+                "section-gap-mobile": "6rem",
+                "unit-xs": "0.25rem"
+        },
+        "fontFamily": {
+                "headline-lg": ["var(--f-display)", "sans-serif"],
+                "label-mono": ["var(--f-mono)", "monospace"],
+                "display-xl": ["var(--f-display)", "sans-serif"],
+                "display-xl-mobile": ["var(--f-display)", "sans-serif"],
+                "headline-sm": ["var(--f-display)", "sans-serif"],
+                "body-base": ["var(--f-body)", "sans-serif"]
+        },
+        "fontSize": {
+                "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-mono": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                "display-xl": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                "display-xl-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "body-base": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  #stack {
+      box-sizing: border-box;
+  }
+  #stack * {
+      box-sizing: border-box;
+  }
+  @keyframes pulse-amber {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 2px var(--signal)); }
+      50% { opacity: 0.5; filter: drop-shadow(0 0 8px var(--signal)); }
+  }
+  #stack .animate-status-pulse {
+      animation: pulse-amber 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  #stack .amber-glow-bg {
+      background: radial-gradient(circle at center, rgba(var(--signal-rgb), 0.15) 0%, transparent 70%);
+  }
+  #stack .radar-grid {
+      stroke: rgba(243, 236, 220, 0.05);
+      stroke-width: 1;
+  }
+  #stack .radar-axis {
+      stroke: rgba(243, 236, 220, 0.1);
+      stroke-width: 1;
+  }
+  @keyframes radar-area-pulse {
+      0%, 100% { fill: rgba(var(--signal-rgb), 0.12); }
+      50% { fill: rgba(var(--signal-rgb), 0.28); }
+  }
+  #stack .radar-area {
+      fill: rgba(var(--signal-rgb), 0.2);
+      stroke: var(--signal);
+      stroke-width: 2;
+      animation: radar-area-pulse 4s ease-in-out infinite;
+  }
+  #stack .radar-point {
+      fill: var(--signal);
+  }
+  #stack .terminal-scroll::-webkit-scrollbar {
+      width: 2px;
+  }
+  #stack .terminal-scroll::-webkit-scrollbar-thumb {
+      background: var(--signal);
+  }
+  #stack .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  /* Fill overrides for labels */
+  #stack .fill-primary {
+      fill: var(--signal);
+  }
+  #stack .fill-secondary {
+      fill: var(--ink-muted);
+  }
+  /* Staggered progress bar loading transition */
+  #stack .progress-bar-fill {
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #stack .is-visible .progress-bar-fill {
+      width: var(--w);
+  }
+  /* Technology Badge Hover Animations (High Intensity Pulse) */
+  @keyframes badge-hover-pulse {
+      0% { transform: translateY(-2px) scale(1.08); }
+      50% { transform: translateY(-2px) scale(1.15); }
+      100% { transform: translateY(-2px) scale(1.08); }
+  }
+  #stack span.font-label-mono.border-border,
+  .work-tech span {
+      cursor: pointer;
+      transition: all 0.3s var(--ease-spring);
+  }
+  #stack span.font-label-mono.border-border:hover,
+  .work-tech span:hover {
+      background: var(--signal) !important;
+      border-color: var(--signal) !important;
+      color: var(--void) !important;
+      animation: badge-hover-pulse 0.8s ease-in-out infinite;
+      box-shadow: 0 0 14px rgba(var(--signal-rgb), 0.5);
+  }
+  /* Card shine reflection effect on scroll reveal */
+  @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 120%; }
+  }
+  #stack .bg-surface-container,
+  #stack .bg-surface-container-lowest {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s var(--ease-spring), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  }
+  #stack .bg-surface-container::after,
+  #stack .bg-surface-container-lowest::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(var(--signal-rgb), 0.15), transparent);
+      transform: skewX(-25deg);
+      pointer-events: none;
+      z-index: 5;
+  }
+  #stack .bg-surface-container.is-visible::after,
+  #stack .bg-surface-container-lowest.is-visible::after {
+      animation: shine 1.6s ease-in-out forwards;
+  }
+  /* Glowing hover highlight, minor zoom and repeat shine sweep */
+  #stack .bg-surface-container:hover,
+  #stack .bg-surface-container-lowest:hover {
+      transform: scale(1.025);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  }
+  #stack .bg-surface-container:hover::after,
+  #stack .bg-surface-container-lowest:hover::after {
+      animation: shine 1.4s ease-in-out infinite;
+  }
+  /* Staggered tech tag pop-in scroll animations */
+  #stack span.font-label-mono.border-border {
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+      will-change: opacity, transform;
+  }
+  #stack .is-visible span.font-label-mono.border-border {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+  }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(1) { transition-delay: 200ms; }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(2) { transition-delay: 260ms; }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(3) { transition-delay: 320ms; }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(4) { transition-delay: 380ms; }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(5) { transition-delay: 440ms; }
+  #stack .is-visible span.font-label-mono.border-border:nth-of-type(6) { transition-delay: 500ms; }
+</style>
 <!-- External Stylesheet -->
 <link rel="stylesheet" href="css/styles.css?v=2">
 </head>
@@ -106,25 +346,181 @@
   <!-- Stack Section -->
   <section class="section" id="stack">
     <div class="container">
-      <div class="section-head" data-scroll="up">
-        <p class="eyebrow">Stack</p>
-        <h2>The tech behind every pixel and function.</h2>
-      </div>
-      <div class="eq" id="eq">
-        <div class="eq-item" data-h="90" style="--eq-d:0"><div class="eq-bar"></div><span class="eq-label">MongoDB</span></div>
-        <div class="eq-item" data-h="75" style="--eq-d:1"><div class="eq-bar"></div><span class="eq-label">Express.js</span></div>
-        <div class="eq-item" data-h="85" style="--eq-d:2"><div class="eq-bar"></div><span class="eq-label">React</span></div>
-        <div class="eq-item" data-h="92" style="--eq-d:3"><div class="eq-bar"></div><span class="eq-label">Node.js</span></div>
-        <div class="eq-item" data-h="80" style="--eq-d:4"><div class="eq-bar"></div><span class="eq-label">JavaScript</span></div>
-        <div class="eq-item" data-h="65" style="--eq-d:5"><div class="eq-bar"></div><span class="eq-label">TypeScript</span></div>
-        <div class="eq-item" data-h="68" style="--eq-d:6"><div class="eq-bar"></div><span class="eq-label">C</span></div>
-        <div class="eq-item" data-h="74" style="--eq-d:7"><div class="eq-bar"></div><span class="eq-label">C++</span></div>
-        <div class="eq-item" data-h="82" style="--eq-d:8"><div class="eq-bar"></div><span class="eq-label">Java</span></div>
-        <div class="eq-item" data-h="88" style="--eq-d:9"><div class="eq-bar"></div><span class="eq-label">Python</span></div>
-        <div class="eq-item" data-h="70" style="--eq-d:10"><div class="eq-bar"></div><span class="eq-label">REST APIs</span></div>
-        <div class="eq-item" data-h="60" style="--eq-d:11"><div class="eq-bar"></div><span class="eq-label">Git</span></div>
-        <div class="eq-item" data-h="50" style="--eq-d:12"><div class="eq-bar"></div><span class="eq-label">Tailwind CSS</span></div>
-        <div class="eq-item" data-h="55" style="--eq-d:13"><div class="eq-bar"></div><span class="eq-label">Postman</span></div>
+      <!-- Header Section -->
+      <header class="mb-16 text-left" data-scroll="up">
+        <p class="eyebrow">Tech Stack</p>
+        <h1 class="font-display-xl text-display-xl text-text-primary max-w-2xl m-0">Precision Built. Performance Scaled.</h1>
+      </header>
+
+      <!-- Main Dashboard Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left">
+        <!-- Left Panel: Detailed Metrics -->
+        <div class="lg:col-span-3 flex flex-col gap-6 order-2 lg:order-1">
+          <!-- Card 1: Programming Languages -->
+          <div class="p-6 bg-surface-container border border-border rounded-lg group hover:border-primary/40 transition-all relative overflow-hidden" data-scroll="up" style="--d: 1">
+            <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/20 transition-all"></div>
+            <p class="font-label-mono text-label-mono text-text-muted mb-4 uppercase m-0">• PROGRAMMING_LANGUAGES</p>
+            <div class="flex items-end justify-between mb-2">
+              <span class="font-headline-sm text-headline-sm text-text-primary">92%</span>
+              <span class="font-label-mono text-[10px] text-primary">CORE</span>
+            </div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="progress-bar-fill h-full bg-primary-container shadow-[0_0_10px_rgba(var(--signal-rgb),0.4)]" style="--w: 92%;"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">PYTHON</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">JAVASCRIPT</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">JAVA</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">PHP</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">C</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">C++</span>
+            </div>
+          </div>
+          
+          <!-- Card 2: Frontend Engine -->
+          <div class="p-6 bg-surface-container border border-border rounded-lg group hover:border-primary/40 transition-all relative overflow-hidden" data-scroll="up" style="--d: 2">
+            <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/20 transition-all"></div>
+            <p class="font-label-mono text-label-mono text-text-muted mb-4 uppercase m-0">• FRONTEND_ENGINE</p>
+            <div class="flex items-end justify-between mb-2">
+              <span class="font-headline-sm text-headline-sm text-text-primary">94%</span>
+              <span class="font-label-mono text-[10px] text-primary">STABLE</span>
+            </div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="progress-bar-fill h-full bg-primary-container shadow-[0_0_10px_rgba(var(--signal-rgb),0.4)]" style="--w: 94%;"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">HTML</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">CSS</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">BOOTSTRAP</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">TAILWIND</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">REACT</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">NEXT.JS</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Backend Core -->
+          <div class="p-6 bg-surface-container border border-border rounded-lg group hover:border-primary/40 transition-all relative overflow-hidden" data-scroll="up" style="--d: 3">
+            <div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover:bg-primary/20 transition-all"></div>
+            <p class="font-label-mono text-label-mono text-text-muted mb-4 uppercase m-0">• BACKEND_CORE</p>
+            <div class="flex items-end justify-between mb-2">
+              <span class="font-headline-sm text-headline-sm text-text-primary">88%</span>
+              <span class="font-label-mono text-[10px] text-primary">ACTIVE</span>
+            </div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="progress-bar-fill h-full bg-primary-container shadow-[0_0_10px_rgba(var(--signal-rgb),0.4)]" style="--w: 88%;"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">NODE.JS</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">EXPRESS</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">DJANGO</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">PYTHON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Panel: Radar Chart -->
+        <div class="lg:col-span-6 relative flex items-center justify-center min-h-[400px] order-1 lg:order-2" data-scroll="scale" style="--d: 1">
+          <!-- Background Ambient Glow -->
+          <div class="absolute inset-0 amber-glow-bg opacity-30 rounded-full blur-3xl scale-75"></div>
+          <svg id="radar-svg" class="w-full max-w-md drop-shadow-[0_0_30px_rgba(var(--signal-rgb),0.1)] transition-transform duration-200 ease-out" viewbox="0 0 400 400">
+            <!-- Radar Polygons (Grids) -->
+            <circle class="radar-grid" cx="200" cy="200" fill="none" r="160"></circle>
+            <circle class="radar-grid" cx="200" cy="200" fill="none" r="120"></circle>
+            <circle class="radar-grid" cx="200" cy="200" fill="none" r="80"></circle>
+            <circle class="radar-grid" cx="200" cy="200" fill="none" r="40"></circle>
+            <!-- Axis -->
+            <g class="radar-axis">
+              <!-- Languages (Top) -->
+              <line x1="200" x2="200" y1="200" y2="40"></line>
+              <!-- Frontend (Right-Top) -->
+              <line x1="200" x2="352" y1="200" y2="110"></line>
+              <!-- Backend (Right-Bottom) -->
+              <line x1="200" x2="294" y1="200" y2="329"></line>
+              <!-- Databases (Left-Bottom) -->
+              <line x1="200" x2="106" y1="200" y2="329"></line>
+              <!-- Tools (Left-Top) -->
+              <line x1="200" x2="48" y1="200" y2="110"></line>
+            </g>
+            <!-- Data Area (Proficiency) -->
+            <!-- Points: 
+                 Languages (Top): 200, 53 (92%)
+                 Frontend (Right-Top): 343, 115 (94%)
+                 Backend (Right-Bottom): 283, 314 (88%)
+                 Databases (Left-Bottom): 127, 301 (78%)
+                 Tools (Left-Top): 63, 119 (90%)
+            -->
+            <polygon class="radar-area" points="200,53 343,115 283,314 127,301 63,119"></polygon>
+            <!-- Data Points -->
+            <circle class="radar-point" cx="200" cy="53" r="4"></circle>
+            <circle class="radar-point" cx="343" cy="115" r="4"></circle>
+            <circle class="radar-point" cx="283" cy="314" r="4"></circle>
+            <circle class="radar-point" cx="127" cy="301" r="4"></circle>
+            <circle class="radar-point" cx="63" cy="119" r="4"></circle>
+            <!-- Labels -->
+            <text class="fill-primary font-label-mono text-[10px] uppercase" text-anchor="middle" x="200" y="30">Languages</text>
+            <text class="fill-secondary font-label-mono text-[10px] uppercase" text-anchor="start" x="360" y="105">Frontend</text>
+            <text class="fill-secondary font-label-mono text-[10px] uppercase" text-anchor="start" x="300" y="345">Backend</text>
+            <text class="fill-secondary font-label-mono text-[10px] uppercase" text-anchor="end" x="100" y="345">Databases</text>
+            <text class="fill-secondary font-label-mono text-[10px] uppercase" text-anchor="end" x="40" y="105">Tools</text>
+          </svg>
+          <div class="absolute bottom-[-20px] font-label-mono text-[10px] text-text-muted animate-pulse">
+            LIVE_RADAR_FEED_ACTIVE
+          </div>
+        </div>
+
+        <!-- Right Panel: Hardware Style Cards & Terminal -->
+        <div class="lg:col-span-3 flex flex-col gap-6 order-3">
+          <!-- Card 1: Databases & Storage -->
+          <div class="p-6 bg-surface-container border border-border rounded-lg group hover:border-primary/40 transition-all relative overflow-hidden" data-scroll="up" style="--d: 1">
+            <p class="font-label-mono text-label-mono text-text-muted mb-4 uppercase m-0">• DATABASES_STORAGE</p>
+            <div class="flex items-end justify-between mb-2">
+              <span class="font-headline-sm text-headline-sm text-text-primary">78%</span>
+              <span class="font-label-mono text-[10px] text-primary">QUERY</span>
+            </div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="progress-bar-fill h-full bg-primary-container shadow-[0_0_10px_rgba(var(--signal-rgb),0.4)]" style="--w: 78%;"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">MONGODB</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">MYSQL</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">REDIS</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Development Tools -->
+          <div class="p-6 bg-surface-container border border-border rounded-lg group hover:border-primary/40 transition-all relative overflow-hidden" data-scroll="up" style="--d: 2">
+            <p class="font-label-mono text-label-mono text-text-muted mb-4 uppercase m-0">• DEVELOPMENT_TOOLS</p>
+            <div class="flex items-end justify-between mb-2">
+              <span class="font-headline-sm text-headline-sm text-text-primary">90%</span>
+              <span class="font-label-mono text-[10px] text-primary">OPTIC</span>
+            </div>
+            <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="progress-bar-fill h-full bg-primary-container shadow-[0_0_10px_rgba(var(--signal-rgb),0.4)]" style="--w: 90%;"></div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">POSTMAN</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">GIT</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">GITHUB</span>
+              <span class="text-[10px] font-label-mono border border-border px-2 py-0.5 rounded">VS CODE</span>
+            </div>
+          </div>
+
+          <!-- Technical Log/Terminal -->
+          <div class="flex-grow p-4 bg-surface-container-lowest border border-border rounded-lg font-label-mono text-[10px] text-text-muted overflow-hidden relative min-h-[160px] text-left" data-scroll="up" style="--d: 3">
+            <div class="absolute top-0 left-0 w-full bg-surface-container-low px-4 py-1 border-b border-border flex justify-between">
+              <span>SYSTEM_LOG</span>
+              <span class="text-primary">v2.0.4</span>
+            </div>
+            <div class="mt-6 h-[120px] overflow-y-auto terminal-scroll space-y-1 pr-2" id="log-container">
+              <p class="text-primary m-0">> Initializing stack radar...</p>
+              <p class="m-0">> Fetching latest proficiency metrics...</p>
+              <p class="m-0">> UI/UX assets validated. 100% integrity.</p>
+              <p class="m-0">> DevOps pipeline: Connected.</p>
+              <p class="text-white/40 m-0">> Running background health checks...</p>
+              <p class="m-0">> All systems nominal.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -233,6 +629,57 @@
 <script src="js/three-hero.js?v=2"></script>
 <script src="js/timeline.js?v=2"></script>
 <script src="js/main.js?v=2"></script>
+
+<!-- Tech Stack Radar Scripts -->
+<script>
+  (function() {
+    // Fake terminal updates
+    const logs = [
+        "Cache cleared in 2.4ms.",
+        "Analyzing project 'Kryptos' dependencies...",
+        "Warning: Heavy UI component detected.",
+        "Optimizing shader performance...",
+        "Deployment to production successful.",
+        "User session established from [REDACTED].",
+        "Thermal levels within threshold.",
+        "Radar sweep complete. No anomalies found."
+    ];
+    
+    const logContainer = document.getElementById('log-container');
+    if (logContainer) {
+      setInterval(() => {
+          const p = document.createElement('p');
+          p.textContent = `> ${logs[Math.floor(Math.random() * logs.length)]}`;
+          p.className = 'opacity-0 transition-opacity duration-500 m-0';
+          logContainer.appendChild(p);
+          
+          // Trigger animation
+          setTimeout(() => p.classList.remove('opacity-0'), 10);
+          
+          // Auto scroll
+          logContainer.scrollTop = logContainer.scrollHeight;
+          
+          // Keep container clean
+          if (logContainer.children.length > 20) {
+              logContainer.removeChild(logContainer.children[0]);
+          }
+      }, 3000);
+    }
+
+    // Parallax effect for radar (using clientX/clientY for viewport safety on scroll)
+    window.addEventListener('mousemove', (e) => {
+        const radar = document.getElementById('radar-svg');
+        const glow = document.querySelector('#stack .amber-glow-bg');
+        if (radar && glow) {
+            const x = (window.innerWidth / 2 - e.clientX) / 40;
+            const y = (window.innerHeight / 2 - e.clientY) / 40;
+            
+            radar.style.transform = `translate(${x}px, ${y}px)`;
+            glow.style.transform = `translate(${x * 1.5}px, ${y * 1.5}px) scale(0.75)`;
+        }
+    });
+  })();
+</script>
 
 </body>
 </html>

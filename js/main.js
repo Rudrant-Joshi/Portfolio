@@ -75,12 +75,12 @@
     var mx=0,my=0, rx=0, ry=0;
     window.addEventListener('mousemove', function(e){
       mx = e.clientX; my = e.clientY;
-      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
     });
     function ringLoop(){
       rx += (mx - rx) * 0.16;
       ry += (my - ry) * 0.16;
-      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%)';
+      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) translate(-50%,-50%)';
       requestAnimationFrame(ringLoop);
     }
     ringLoop();
@@ -93,26 +93,40 @@
   /* ---------- MAGNETIC BUTTONS ---------- */
   if (fine && !reduced) {
     document.querySelectorAll('.magnetic').forEach(function(el){
+      var r;
+      el.addEventListener('mouseenter', function(){
+        r = el.getBoundingClientRect();
+      });
       el.addEventListener('mousemove', function(e){
-        var r = el.getBoundingClientRect();
+        if (!r) return;
         var x = e.clientX - r.left - r.width/2;
         var y = e.clientY - r.top - r.height/2;
-        el.style.transform = 'translate(' + (x*0.28) + 'px,' + (y*0.32) + 'px)';
+        el.style.transform = 'translate3d(' + (x*0.28) + 'px,' + (y*0.32) + 'px,0)';
       });
-      el.addEventListener('mouseleave', function(){ el.style.transform = 'translate(0,0)'; });
+      el.addEventListener('mouseleave', function(){
+        r = null;
+        el.style.transform = 'translate3d(0,0,0)';
+      });
     });
   }
 
   /* ---------- WORK CARD TILT ---------- */
   if (fine && !reduced) {
     document.querySelectorAll('.work-card').forEach(function(card){
+      var r;
+      card.addEventListener('mouseenter', function(){
+        r = card.getBoundingClientRect();
+      });
       card.addEventListener('mousemove', function(e){
-        var r = card.getBoundingClientRect();
+        if (!r) return;
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
         card.style.transform = 'perspective(800px) rotateX(' + (-py*6) + 'deg) rotateY(' + (px*8) + 'deg) translateY(-4px)';
       });
-      card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+      card.addEventListener('mouseleave', function(){
+        r = null;
+        card.style.transform = '';
+      });
     });
   }
 
