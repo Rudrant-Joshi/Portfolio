@@ -399,9 +399,9 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 }
 
 /* ===================== STACK ===================== */
-.eq{display:flex;align-items:flex-end;gap:clamp(10px,2.4vw,22px);height:160px;padding-bottom:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}
+.eq{display:flex;align-items:flex-end;gap:0;height:160px;padding-bottom:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:space-evenly;}
 .eq::-webkit-scrollbar{display:none;}
-.eq-item{display:flex;flex-direction:column;align-items:center;gap:14px;flex:0 0 auto;}
+.eq-item{display:flex;flex-direction:column;align-items:center;gap:14px;flex:1 1 0;min-width:0;}
 .eq-bar{width:9px;border-radius:5px;background:linear-gradient(180deg,var(--signal),var(--teal));height:6px;transition:height 1s var(--ease-spring);}
 .eq-item.in-view .eq-bar{height:var(--h,60px);}
 .eq-label{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.06em;color:var(--ink-muted);white-space:nowrap;}
@@ -410,9 +410,9 @@ body.has-cursor a,body.has-cursor button{cursor:none;}
 @media (max-width:640px){
   .eq{
     display:grid;
-    grid-template-columns:repeat(5, 1fr);
+    grid-template-columns:repeat(7, 1fr);
     height:auto;
-    gap:24px 12px;
+    gap:24px 8px;
     overflow-x:visible;
     justify-items:center;
   }
